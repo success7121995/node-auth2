@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user-routes');
+const productRoutes = require('./routes/product-routes');
 
 // init app
 const app = express();
@@ -17,7 +18,8 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 
 // routes
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
+app.use('/products', productRoutes);
 
 //connect to db
 const port = process.env.PORT;
