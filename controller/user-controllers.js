@@ -22,10 +22,12 @@ const handleErrors = (err) => {
         return errors;
     };
 };
-
-// const tcreateToken = (id, {
-//     const token = 
-// })
+const maxAge = 1000 * 60 * 60 * 24;
+const createToken = (id) => {
+    return jwt.sign({ id }, 'Fabulous', {
+        expiresIn: maxAge,
+    });
+};
 
 // routes
 // go to login page
@@ -48,9 +50,9 @@ module.exports.signup_post = async (req, res) => {
     const { username, email, password, password1 } = req.body;
     
     // confirm password
-    if (password !== password1) {   
+    if (password !== password1) {
         res.status(400).json({
-            password1: 'password not match.'
+            password1: 'Password is not match.'
         });
     } else {
 
@@ -61,6 +63,7 @@ module.exports.signup_post = async (req, res) => {
                 username,
                 password
             });
+            const token = createToken(user._id);
             res.status(201).json(user);
         } catch (err) {
             console.log(err)
