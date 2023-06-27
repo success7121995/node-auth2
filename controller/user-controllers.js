@@ -12,6 +12,7 @@ const handleErrors = (err) => {
     if (err.code === 11000) {
         return errors.email = 'Email has been registered.'
     };
+    console.log(err.code, err.keyPattern);
 
     // validation
     if (err.message.includes('Users validation failed')) {
@@ -52,8 +53,8 @@ module.exports.signup_post = async (req, res) => {
     // try to create an account 
         try {
             const user = await User.create({
-                username,
                 email,
+                username,
                 password
             });
             res.status(201).json(user);
