@@ -8,6 +8,11 @@ const handleErrors = (err) => {
         password: ''
     };
 
+    // password not match
+    // if (err === 'not match') {
+    //     console.log('yes');
+    // }
+
     // email duplicated
     if (err.code === 11000 && { email: 1}) {
         return errors.email = 'Email has been registered.'
@@ -22,6 +27,7 @@ const handleErrors = (err) => {
     };
 };
 
+// routes
 // go to login page
 module.exports.login_get = (req, res) => {
     res.render('login');
@@ -39,18 +45,27 @@ module.exports.login_post = (req, res) => {
 
 // user sign up
 module.exports.signup_post = async (req, res) => {
-    const { username, email, password } = req.body;
-
-    try {
-        const user = await User.create({
-            username,
-            email,
-            password
+    const { username, email, password, password1 } = req.body;
+    
+    // confirm password
+    if (password !== password1) {
+        res.status(400).json({
+            password1: 'password not match.'
         });
-        res.status(201).json(user);
-    } catch (err) {
-        const errors = handleErrors(err);
-        console.log(err);
-        res.status(400).json(errors);
-    };
+    } else {
+
+    // try to create an account 
+        try {
+            const user = await User.create({
+                username,
+                email,
+                password
+            });
+            res.status(201).json(user);
+        } catch (err) {
+            const errors = handleErrors(err);
+            res.status(400).json(errors);
+        };
+    }
 };
+
