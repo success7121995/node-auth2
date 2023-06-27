@@ -1,4 +1,5 @@
 const User = require('../models/Users,js');
+const jwt = require('jsonwebtoken');
 
 // handele errors
 const handleErrors = (err) => {
@@ -22,6 +23,10 @@ const handleErrors = (err) => {
     };
 };
 
+// const tcreateToken = (id, {
+//     const token = 
+// })
+
 // routes
 // go to login page
 module.exports.login_get = (req, res) => {
@@ -43,7 +48,7 @@ module.exports.signup_post = async (req, res) => {
     const { username, email, password, password1 } = req.body;
     
     // confirm password
-    if (password !== password1) {
+    if (password !== password1) {   
         res.status(400).json({
             password1: 'password not match.'
         });
