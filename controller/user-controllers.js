@@ -9,10 +9,9 @@ const handleErrors = (err) => {
     };
 
     // email duplicated
-    // if (err.code === 11000) {
-    //     return errors.email = 'Email has been registered.'
-    // };
-    // console.log(err.code, err.keyPattern);
+    if (err.code === 11000) {
+        return errors.email = 'Email has been registered.'
+    };
 
     // validation
     if (err.message.includes('Users validation failed')) {
