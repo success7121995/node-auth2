@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
+
 // password validation
 const isValid = (val) => {
     const regex = /(?=.*[a-z])(?=.*[0-9])/;
@@ -29,6 +30,9 @@ const userSchema = mongoose.Schema({
         validate: [isValid, 'Password must contain both charactors and digit.']
     }
 });
+
+// password match
+
 
 // hash password
 userSchema.pre('save', async function(next) {
