@@ -1,17 +1,23 @@
 <%- include('partials/header'); -%>
+<%- include('partials/nav'); -%>
 
-<form class="login">
-    <h2>Login</h2>
-    <label for="email">Email</label>
-    <input type="text" name="email" required>
-    <div class="email error"></div>
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/header'); -%>  
+<body>
+    <%- include('partials/nav'); -%>    
+    <form class="login">
+        <h2>Login</h2>
+        <label for="email">Email</label>
+        <input type="text" name="email" required>
+        <div class="email error"></div>
 
-    <label for="password">Password</label>
-    <input type="password" name="password" required>
-    <div class="password error"></div>
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+        <div class="password error"></div>
 
-    <button type="submit">Login</button>
-</form>
-
-
-<%- include('partials/footer'); -%>
+        <button id="login-btn">Login</button>
+    </form>
+    <%- include('partials/footer'); -%>
+</body>
+</html>
