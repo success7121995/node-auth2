@@ -8,11 +8,6 @@ const handleErrors = (err) => {
         password: ''
     };
 
-    // password not match
-    // if (err === 'not match') {
-    //     console.log('yes');
-    // }
-
     // email duplicated
     if (err.code === 11000 && { email: 1}) {
         return errors.email = 'Email has been registered.'
@@ -63,6 +58,7 @@ module.exports.signup_post = async (req, res) => {
             });
             res.status(201).json(user);
         } catch (err) {
+            console.log(err)
             const errors = handleErrors(err);
             res.status(400).json(errors);
         };
