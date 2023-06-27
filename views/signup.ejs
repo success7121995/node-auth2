@@ -3,8 +3,12 @@
 <%- include('partials/header'); -%>
 <body>
     <%- include('partials/nav'); -%>
-    <form class="signup">
+    <form>
         <h2>Sign Up</h2>
+        <label for="username">Username</label>
+        <input type="text" name="username" required />
+        <div class="username error"></div>
+
         <label for="email">Email</label>
         <input type="text" name="email" required />
         <div class="email error"></div>
@@ -15,10 +19,12 @@
     
         <label for="password1">Confirm Password</label>
         <input type="password" name="password1" required />
+        <div class="password1 error"></div>
     
-        <button class="signup-btn">Sign Up</button>
+        <button>Sign Up</button>
     </form>
     <%- include('partials/footer'); -%>
+    <script src="/js/signup.js"></script>
 </body>
 </html>
 
