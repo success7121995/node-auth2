@@ -9,7 +9,7 @@ const handleErrors = (err) => {
     };
 
     // email duplicated
-    if (err.code === 11000 && { email: 1}) {
+    if (err.code === 11000) {
         return errors.email = 'Email has been registered.'
     };
 
