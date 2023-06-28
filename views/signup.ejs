@@ -6,7 +6,7 @@
     <form>
         <h2>Sign Up</h2>
         <label for="username">Username</label>
-        <input type="text" name="username" required />
+        <input class="username" type="text" name="username" required />
         <div class="username error"></div>
 
         <label for="email">Email</label>
@@ -21,7 +21,7 @@
         <input type="password" name="password1" required />
         <div class="password1 error"></div>
     
-        <button>Sign Up</button>
+        <button type="submit">Sign Up</button>
     </form>
     <%- include('partials/footer'); -%>
     <script src="/js/signup.js"></script>

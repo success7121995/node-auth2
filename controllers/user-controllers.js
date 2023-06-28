@@ -27,8 +27,9 @@ const handleErrors = (err) => {
 const maxAge = 1000 * 24 * 60 * 60;
 const createToken = (id) => {
     return jwt.sign({ id }, 'Fabulous', { expiresIn: maxAge });
-}
+};
 
+// controllers
 // login page
 module.exports.login_get = (req, res) => {
     res.render('login');
@@ -49,13 +50,14 @@ module.exports.signup_post = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {     
-        const user = await User.create({ username, email, password })
+        const user = await User.create({ username, email, password });
         const token = createToken(user._id);
-        res.cookie('user', token, {
+        res.cookie('authUser', token, {
             httpOnly: true,
+            secure: true,
             maxAge: maxAge * 3
         });
-        res.status(201).json(user._id);
+        res.status(201).json({ user: user._id });
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).json(errors);
