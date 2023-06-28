@@ -33,8 +33,6 @@ form.addEventListener('submit', async (e) => {
                 headers: { 'Content-Type': 'application/json'}
             });
             const data = await res.json();
-            console.log(data.errors)
-            console.log(data)
             if (data.errors) {
                 usernameError.textContent = data.errors.username;
                 emailError.textContent = data.errors.email;

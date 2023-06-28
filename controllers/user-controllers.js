@@ -8,6 +8,12 @@ const handleErrors = (err) => {
         email: '',
         password: '',
     };
+    
+    // duplicate
+    if (err.code === 11000) {
+        errors.email = 'Email has been registered.';
+        return errors
+    };
 
     // validator
     if (err.message.includes('Users validation failed')) {
@@ -15,11 +21,6 @@ const handleErrors = (err) => {
             errors[properties.path] = properties.message;
         });
         return errors;
-    };
-
-    // duplicate
-    if (err.code === 11000) {
-        return errors.email = 'Email has been registered.';
     };
 };
 

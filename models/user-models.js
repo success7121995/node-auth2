@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
 
 // password validation
 const isValid = (val) => {
@@ -26,6 +27,13 @@ const userSchema = mongoose.Schema({
         minlength: [6, 'Minimum 6 character is required.'],
         validate: [isValid, 'Password must contain both characters and numbers.']
     }
+});
+
+// hash password
+userSchema.pre('save', async function(next) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
 // user schema
