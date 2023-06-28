@@ -32,10 +32,19 @@ form.addEventListener('submit', async (e) => {
                 body: JSON.stringify({ username, email, password }),
                 headers: { 'Content-Type': 'application/json'}
             });
-            const data = await res.json;
-            console.log(data);
+            const data = await res.json();
+            console.log(data.errors)
+            console.log(data)
+            if (data.errors) {
+                usernameError.textContent = data.errors.username;
+                emailError.textContent = data.errors.email;
+                passwordError.textContent = data.errors.password;
+            };
+            if (data.user) {
+                location.assign('/');
+            };
         } catch (err) {
-            console.log(err)
-        }
+            console.log(err);
+        };
     };
 });

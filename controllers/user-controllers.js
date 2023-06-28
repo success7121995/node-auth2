@@ -9,17 +9,17 @@ const handleErrors = (err) => {
         password: '',
     };
 
-    // duplicate
-    if (err.code === 11000) {
-        return errors.email = 'Email has been registered.'
-    };
-
     // validator
     if (err.message.includes('Users validation failed')) {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });
         return errors;
+    };
+
+    // duplicate
+    if (err.code === 11000) {
+        return errors.email = 'Email has been registered.';
     };
 };
 
@@ -60,7 +60,7 @@ module.exports.signup_post = async (req, res) => {
         res.status(201).json({ user: user._id });
     } catch (err) {
         const errors = handleErrors(err);
-        res.status(400).json(errors);
+        res.status(400).json({ errors });
     };
 };
 
