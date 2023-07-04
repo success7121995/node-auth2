@@ -32,7 +32,6 @@ const connectdb = async () => {
 connectdb();
 
 // routes
-
 app.use('/users', userRoutes);
 
 // home

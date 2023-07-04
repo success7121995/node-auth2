@@ -1,5 +1,4 @@
 const User = require('../models/user-models');
-const jwt = require('../middlewares/token');
 // handle errors
 const handleErrors = (err) => {
     let errors = {
@@ -45,12 +44,6 @@ module.exports.signup_post = async (req, res) => {
     // create an user
     try {
         const user = await User.create({ username, email, password});
-        const userToken = jwt.userRole(user.id);
-        res.cookie('User', userToken, {
-            httpOnly: true,
-            secure: true,
-            maxAge: 3 * 1000 * 60 * 60 * 24
-        });
         res.status(201).json({ user });
     } catch (err) {
         const errors = handleErrors(err);
