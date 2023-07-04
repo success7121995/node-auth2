@@ -24,20 +24,24 @@ form.addEventListener('submit', async (e) => {
     if (password !== password1) {
         password1Err.textContent = 'Password is not match.';
     } else {
-        const res = await fetch('/users/signup', {
-            method: 'POST',
-            body: JSON.stringify({ username, email, password }),
-            headers: { 'Content-Type': 'application/json'}
-        });
-    
-        const data = await res.json();
-        if(data.errors) {
-            usernameErr.textContent = data.errors.username;
-            emailErr.textContent = data.errors.email;
-            passwordErr.textContent = data.errors.password;
-        }
-        if (data.user) {
-            location.assign('/');
+        try {            
+            const res = await fetch('/users/signup', {
+                method: 'POST',
+                body: JSON.stringify({ username, email, password }),
+                headers: { 'Content-Type': 'application/json'}
+            });
+        
+            const data = await res.json();
+            if(data.errors) {
+                usernameErr.textContent = data.errors.username;
+                emailErr.textContent = data.errors.email;
+                passwordErr.textContent = data.errors.password;
+            }
+            if (data.user) {
+                location.assign('/');
+            };
+        } catch (err) {
+            console.log(err);
         };
     };
 });
