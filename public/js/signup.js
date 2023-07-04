@@ -1,4 +1,3 @@
-
 const form = document.querySelector('form');
 
 form.addEventListener('submit', async (e) => {
@@ -10,39 +9,35 @@ form.addEventListener('submit', async (e) => {
     const password = form.password.value;
     const password1 = form.password1.value;
 
-    // error messages
-    const usernameError = document.querySelector('.username.error');
-    const emailError = document.querySelector('.email.error');
-    const passwordError = document.querySelector('.password.error');
-    const password1Error = document.querySelector('.password1.error');
+    // err messages
+    const usernameErr = document.querySelector('.username.error');
+    const emailErr = document.querySelector('.email.error');
+    const passwordErr = document.querySelector('.password.error');
+    const password1Err = document.querySelector('.password1.error');
 
-    // reset messages
-    usernameError.textContent = '';
-    emailError.textContent = '';
-    passwordError.textContent = '';
-    password1Error.textContent = '';
+    // reset message
+    usernameErr.textContent = '';
+    emailErr.textContent = '';
+    passwordErr.textContent = '';
+    password1Err.textContent = '';
 
-    // confirm password
-    if ((password !== password1)) {
-        password1Error.textContent = 'Passwords must match';
-    } else {        
-        try {
-            const res = await fetch('/users/signup', {
-                method: 'POST',
-                body: JSON.stringify({ username, email, password }),
-                headers: { 'Content-Type': 'application/json'}
-            });
-            const data = await res.json();
-            if (data.errors) {
-                usernameError.textContent = data.errors.username;
-                emailError.textContent = data.errors.email;
-                passwordError.textContent = data.errors.password;
-            };
-            if (data.user) {
-                location.assign('/');
-            };
-        } catch (err) {
-            console.log(err);
+    if (password !== password1) {
+        password1Err.textContent = 'Password is not match.';
+    } else {
+        const res = await fetch('/users/signup', {
+            method: 'POST',
+            body: JSON.stringify({ username, email, password }),
+            headers: { 'Content-Type': 'application/json'}
+        });
+    
+        const data = await res.json();
+        if(data.errors) {
+            usernameErr.textContent = data.errors.username;
+            emailErr.textContent = data.errors.email;
+            passwordErr.textContent = data.errors.password;
+        }
+        if (data.user) {
+            location.assign('/');
         };
     };
 });
