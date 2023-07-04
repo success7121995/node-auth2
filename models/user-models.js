@@ -36,6 +36,12 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
+// login
+userSchema.statics.login = async function(password) {
+    
+}
+
+
 // create User model
 const User = mongoose.model('Users', userSchema);
 
