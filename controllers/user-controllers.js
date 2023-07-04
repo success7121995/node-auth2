@@ -23,6 +23,17 @@ const handleErrors = (err) => {
         });
         return errors;
     };
+
+    // login
+    if (err.message === 'incorrect email') {
+        errors.email = 'Incorrect email.';
+        return errors;
+    };
+
+    if (err.message === 'incorrect password') {
+        errors.password = 'Incorrect password.';
+        return errors;
+    };
 };
 
 // jwt
@@ -42,8 +53,16 @@ module.exports.signup_get = (req, res) => {
 };
 
 // login
-module.exports.login_post = (req, res) => {
-    res.send('user login');
+module.exports.login_post = async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.login(email, password);
+        res.status(200).json({ user })
+    } catch (err) {
+        const errors = handleErrors(err);
+        res.status(400).json({ errors });
+    };
 };
 
 // sign up

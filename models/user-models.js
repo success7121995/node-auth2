@@ -37,10 +37,17 @@ userSchema.pre('save', async function(next) {
 });
 
 // login
-userSchema.statics.login = async function(password) {
-    
+userSchema.statics.login = async function(email, password) {
+    const user = await this.findOne({ email });
+    if (user) {
+        const auth = await bcrpyt.compare(password, user.password);
+        if (auth) {
+            return user;
+        }
+        throw Error('incorrect password');
+    }
+    throw Error('incorrect email');
 }
-
 
 // create User model
 const User = mongoose.model('Users', userSchema);
