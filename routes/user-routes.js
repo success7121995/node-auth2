@@ -18,5 +18,8 @@ userRouter.post('/login', UserControllers.login_post);
 // sign up
 userRouter.post('/signup', UserControllers.signup_post);
 
+// logout
+userRouter.post('/logout', UserControllers.logout_get);
+
 // exports
 module.exports = userRouter;

@@ -37,6 +37,11 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+// redirect to home
+app.get('/users', (req, res) => {
+    res.redirect('/');
+});
+
 // 404
 app.use((req, res) => {
     res.render('404');
