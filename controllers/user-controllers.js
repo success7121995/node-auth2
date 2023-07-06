@@ -1,3 +1,39 @@
+const { User } = require('../models/User');
+
+// handle error
+const handleErr = (err) => {
+    const errors = {
+        username: '',
+        email: '',
+        password: '',
+    };
+
+    // duplicate
+    if (err.code === 11000) {
+        errors.email = 'Email is registered.';
+        return errors;
+    };
+
+    // validator
+    if (err.message.includes('Users validation failed')) {
+        Object.values(err.errors).forEach(({ properties }) => {
+            errors[properties.path] = properties.message;
+        });
+        return errors;
+    };
+
+    // login wrong email
+    if (err.message === 'incorrect email') {
+        errors.email = 'Incorrect email.';
+        return errors;
+    };
+
+    // login wrong password
+    if (err.message === 'incorrect password') {
+        errors.password = 'Incorrect password.';
+        return errors;
+    };
+};
 
 // go to login page
 module.exports.login_get = (req, res) => {
@@ -10,11 +46,27 @@ module.exports.signup_get = (req, res) => {
 };
 
 // login
-module.exports.login_post = (req, res) => {
+module.exports.login_post = async (req, res) => {
+    const { email, password } = req.body;
 
+    try {
+        const user = await User.login(email, password);
+        res.status(200).json({ user });
+    } catch (err) {
+        const errors = handleErr(err);
+        res.status(400).json({ errors });
+    };
 };
 
 // signup
-module.exports.signup_post = (req, res) => {
-    
+module.exports.signup_post = async (req, res) => {
+    const { username, email, password } = req.body;
+
+    try {
+      const user =  await User.create({ username, email, password });
+      res.json(201).json({ user });
+    } catch (err) {
+        const errors = handleErr(err);
+        res.status(400).json({ errors });
+    };
 };
