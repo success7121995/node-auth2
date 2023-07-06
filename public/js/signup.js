@@ -22,11 +22,30 @@ form.addEventListener('submit', async (e) => {
     password1Err.textContent = '';
 
     // compare passwords, if matched, send data to server
-    if (password !== password1) {
+    if (password === password1) {
         try {
-            
+
+            // fetch api
+           const res = await fetch('/users/signup', {
+                method: 'POST',
+                body: JSON.stringify({ username, email, password }),
+                headers: { 'Content-Type': 'application/json'}
+           });
+
+           // send data
+           const data = await res.json();
+           if (data.errors) {
+                usernameErr.textContent = data.errors.username;
+                emailErr.textContent = data.errors.email;
+                passwordErr.textContent = data.errors.password;
+           };
+           if (data.user) {
+                location.assign('/');
+           };
         } catch (err) {
             console.log(err);
         };
+    } else {
+        password1Err.textContent = 'Password is not match.';
     };
 });
