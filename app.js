@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 
+// import middlewares
+const userRoutes = require('./routes/user-routes');
+
 // init app
 const app = express();
 
@@ -39,6 +42,8 @@ const connectDb = async () => {
 connectDb();
 
 // route
+app.use('/users', userRoutes);
+
 // go to home page
 app.get('/', (req, res) => {
     res.render('home');
