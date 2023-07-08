@@ -1,3 +1,21 @@
+
+// get cookie value
+const getCookie = (cookie) => {
+    if (!cookie) {
+        return '/';
+    } else {
+        return cookie
+            .split('; ')
+            .find(cookie => {
+                return cookie.indexOf('directUrl') !== -1;
+            })
+            .split('=')
+            .pop()
+    };
+};
+console.log(getCookie(document.cookie));
+
+// submit the form to server
 const form = document.querySelector('form');
 
 form.addEventListener('submit', async (e) => {
@@ -29,6 +47,6 @@ form.addEventListener('submit', async (e) => {
         passwordErr.textContent = data.errors.password;
     };
     if (data.user) {
-        location.assign('/');
-    };  
+        console.log(document.cookie.split('='));
+    }
 });

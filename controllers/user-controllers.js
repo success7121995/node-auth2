@@ -52,7 +52,7 @@ module.exports.login_post = async (req, res) => {
     try {
         const user = await User.login(email, password);
         req.session.user = user;
-        res.status(200).json({ user });
+        res.status(201).json({ user });
     } catch (err) {
         const errors = handleErr(err);
         res.status(400).json({ errors });
@@ -64,9 +64,9 @@ module.exports.signup_post = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
-      const user =  await User.create({ username, email, password });
-      req.session.user = user;
-      res.status(201).json({ user });
+        const user =  await User.create({ username, email, password });
+        req.session.user = user;
+        res.status(201).json({ user });
     } catch (err) {
         const errors = handleErr(err);
         res.status(400).json({ errors });
