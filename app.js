@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const userRoutes = require('./routes/user-routes');
+const productRouter = require('./routes/product-routes');
 
 // init app
 const app = express();
@@ -40,10 +41,10 @@ app.set('view engine', 'ejs');
 
 // route
 app.use('/users', userRoutes);
+app.use('/smoothies', productRouter);
 
 // go to home page
 app.get('/', (req, res) => {
-    req.session.isAuth = true;
     res.render('home');
 });
 
