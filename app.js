@@ -7,27 +7,8 @@ const userRoutes = require('./routes/user-routes');
 // init app
 const app = express();
 
-// middlewwares
-app.use(express.json());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-app.use(session({
-    name: 'sid',
-    secret: process.env.SESSION_SECRET,
-    saveUninitialized: false,
-    resave: true,
-    cookie: {
-        httpOnly: true,
-        secure: true,
-        maxAge: 1000 * 24 * 60 * 60
-    },
-}));
-
-// view engine
-app.set('view engine', 'ejs');
-
 // connect to db
-const connectDb = async () => {    
+const connectDb = async () => {
     try {
         await mongoose.connect(process.env.DB_URL, { useUnifiedTopology: true });
         app.listen(process.env.PORT, () => {
@@ -39,11 +20,30 @@ const connectDb = async () => {
 };
 connectDb();
 
+// middlewwares
+app.use(express.json());
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    name: 'sid',
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: true,
+    cookie: {
+        httpOnly: true,
+        expires: 1000 * 24 * 60 * 60
+    }
+}));
+
+// view engine
+app.set('view engine', 'ejs');
+
 // route
 app.use('/users', userRoutes);
 
 // go to home page
 app.get('/', (req, res) => {
+    req.session.isAuth = true;
     res.render('home');
 });
 
