@@ -3,7 +3,7 @@
 module.exports.isAuth = (req, res, next) => {
     const user = req.session.user;
     const directUrl = req.originalUrl;
-    
+
     if (!user) {
         res.cookie('directUrl', directUrl, { maxAge: 1000 * 24 * 60 * 60 });
         res.redirect('/users/login');

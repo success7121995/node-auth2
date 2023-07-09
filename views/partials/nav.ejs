@@ -3,7 +3,7 @@
     <ul>
         <% if (user) { %>
             <li style="text-transform: capitalize;">Welcome, <%= user.username %></li>
-            <li><a href="/users/logout">Logout</a></li>
+            <li><a href="/logout">Logout</a></li>
         <% } else { %>
             <li><a href="/users/login">Log in</a></li>
             <li><a href="/users/signup" class="btn">Sign up</a></li>

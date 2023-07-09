@@ -52,6 +52,12 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+// logout
+app.get('/logout', (req, res) => {
+    res.clearCookie('sid');
+    res.redirect('/');
+}); 
+
 // 404
 app.use((req, res) => {
     res.status(404).render('404')
