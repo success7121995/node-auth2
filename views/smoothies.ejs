@@ -5,12 +5,27 @@
   <%- include('partials/nav'); -%>
 
   <ul class="recipes">
-    <li class="recipe">
+
+    <% if (products.length > 0) { %>
+      <% products.forEach(product => { %>
+        <li class="recipe">
+          <img src="/img/smoothie.png" alt="smoothie recipe icon">
+          <h4><%= product.name %></h4>
+          <p><%= product.desc %></p>
+          <p>price: $<%= product.price %></p>
+        </li>
+    <%  }) %>
+    <% } else { %>
+      <h4>oops! no recipe is available!</h4>
+    <% } %>
+
+
+    <!-- <li class="recipe">
       <img src="/img/smoothie.png" alt="smoothie recipe icon">
       <h4>Banana Boost</h4>
       <p>Banana, Vanilla ice cream, Milk</p>
-    </li>
-    <li class="recipe">
+    </li> -->
+    <!-- <li class="recipe">
       <img src="/img/smoothie.png" alt="smoothie recipe icon">
       <h4>Tropical Twist</h4>
       <p>Peach, Pinapple, Apple juice</p>
@@ -34,7 +49,7 @@
       <img src="/img/smoothie.png" alt="smoothie recipe icon">
       <h4>Protein Packer</h4>
       <p>Oats, Peanut butter, Milk, Banana, Blueberries</p>
-    </li>
+    </li> -->
   </ul>
 
 <%- include('partials/footer'); -%>
