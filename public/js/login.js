@@ -1,20 +1,4 @@
 
-// get cookie value
-const getCookie = (cookie) => {
-    if (!cookie) {
-        return '/';
-    } else {
-        return cookie
-            .split('; ')
-            .find(cookie => {
-                return cookie.indexOf('directUrl') !== -1;
-            })
-            .split('=')
-            .pop()
-    };
-};
-console.log(getCookie(document.cookie));
-
 // submit the form to server
 const form = document.querySelector('form');
 
@@ -47,6 +31,6 @@ form.addEventListener('submit', async (e) => {
         passwordErr.textContent = data.errors.password;
     };
     if (data.user) {
-        console.log(document.cookie.split('='));
-    }
+        return (data.directUrl) ? location.assign(data.directUrl) : location.assign('/');
+    };
 });

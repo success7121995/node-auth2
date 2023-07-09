@@ -52,7 +52,12 @@ module.exports.login_post = async (req, res) => {
     try {
         const user = await User.login(email, password);
         req.session.user = user;
-        res.status(201).json({ user });
+        const directUrl = req.cookies.directUrl;
+        if (directUrl !== null && directUrl !== '/users/signup') {
+            res.status(200).json({ user, directUrl });
+        } else {
+            res.status(200).json({ user });
+        };
     } catch (err) {
         const errors = handleErr(err);
         res.status(400).json({ errors });
