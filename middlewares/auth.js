@@ -1,9 +1,10 @@
 
 // not allow to access if the user is unauthorized.
 module.exports.isAuth = (req, res, next) => {
+    const user = req.session.user;
     const directUrl = req.originalUrl;
-
-    if (!req.session.user) {
+    
+    if (!user) {
         res.cookie('directUrl', directUrl, { maxAge: 1000 * 24 * 60 * 60 });
         res.redirect('/users/login');
     } else {
@@ -11,3 +12,15 @@ module.exports.isAuth = (req, res, next) => {
     };
 };
 
+// check the user and show the username on the dashboard
+module.exports.checkUser = (req, res, next) => {
+    const user = req.session.user;
+
+    if (!user) {
+        res.locals.user = null;
+        next();
+    } else {
+        res.locals.user = user;
+        next();
+    };
+};

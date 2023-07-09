@@ -5,6 +5,7 @@ const session = require('express-session');
 const cookieParer = require('cookie-parser');
 const userRoutes = require('./routes/user-routes');
 const productRouter = require('./routes/product-routes');
+const auth = require('./middlewares/auth');
 
 // init app
 const app = express();
@@ -42,6 +43,7 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 // route
+app.get('*', auth.checkUser);
 app.use('/users', userRoutes);
 app.use('/smoothies', productRouter);
 

@@ -31,6 +31,10 @@ form.addEventListener('submit', async (e) => {
         passwordErr.textContent = data.errors.password;
     };
     if (data.user) {
-        return (data.directUrl) ? location.assign(data.directUrl) : location.assign('/');
+        if (data.directUrl) {
+            location.assign(data.directUrl);
+        } else {
+            location.assign('/');
+        };
     };
 });
