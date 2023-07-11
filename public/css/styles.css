@@ -132,7 +132,9 @@ header .btn{
 }
 .recipe img{
   width: 100px;
+  height: 130px;
   margin: -30px auto 20px;
+  box-shadow: -1px 13px 18px -6px rgba(0,0,0,0.13);
 }
 footer{
   text-align: center;
