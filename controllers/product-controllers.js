@@ -12,10 +12,23 @@ module.exports.viewProducts_get = async (req, res) => {
     };
 };
 
-// go to view single product
-module.exports.viewProduct_get = async (req, res) => {
-    const product = req.param.id
-}
+const cart = [];
+
+// add to cart
+module.exports.viewProduct_get = async (req, res, next) => {
+    const id = req.params.id;
+    
+    try {
+        const product = await Smoothies.findById(id);
+        cart.push({ product });
+        console.log(cart);
+        res.cookie('cart', cart);
+        console.log(req.cookies.cart);
+        res.redirect('/smoothies');
+    } catch (err) {
+        console.log(err);
+    };
+};
 
 // go to upload page
 module.exports.upload_get = (req, res) => {

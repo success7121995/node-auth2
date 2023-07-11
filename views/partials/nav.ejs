@@ -5,7 +5,6 @@
             <li style="text-transform: capitalize;">Welcome, <%= user.username %></li>
 
             <% if (user.permission === 'ADMIN') {  %>
-                <%= console.log(user.permission) %>
                 <li><a href="/smoothies/upload">Upload New Drinks</a></li>
             <% } %>
  

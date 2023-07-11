@@ -21,7 +21,6 @@ module.exports.checkUser = (req, res, next) => {
         res.locals.user = null;
         next();
     } else {
-        console.log(user);
         res.locals.user = user;
         next();
     };
@@ -30,6 +29,7 @@ module.exports.checkUser = (req, res, next) => {
 // access control
 module.exports.isAdmin = (req, res, next) => {
     const user = req.session.user;
+    
     if (user) {
         const role = user.permission;
         if (role === 'ADMIN') {   

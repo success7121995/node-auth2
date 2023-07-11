@@ -48,7 +48,6 @@ module.exports.signup_get = (req, res) => {
 // login
 module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
-
     try {
         const user = await User.login(email, password);
         req.session.user = user;
