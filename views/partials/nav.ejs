@@ -3,7 +3,12 @@
     <ul>
         <% if (user) { %>
             <li style="text-transform: capitalize;">Welcome, <%= user.username %></li>
-            <li><a href="/smoothies/upload">Upload New Drinks</a></li>
+
+            <% if (user.permission === 'ADMIN') {  %>
+                <%= console.log(user.permission) %>
+                <li><a href="/smoothies/upload">Upload New Drinks</a></li>
+            <% } %>
+ 
             <li><a href="/logout">Logout</a></li>
             <% } else { %>
             <li><a href="/users/login">Log in</a></li>

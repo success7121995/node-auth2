@@ -11,10 +11,10 @@ const productRouter = express.Router();
 productRouter.get('/', auth.isAuth, productControllers.viewProducts_get);
 
 // go to upload page
-productRouter.get('/upload', productControllers.upload_get);
+productRouter.get('/upload', auth.isAdmin, productControllers.upload_get);
 
 // store products to db
-productRouter.post('/upload', upload.uploadImg, productControllers.upload_post);
+productRouter.post('/upload', auth.isAdmin, upload.uploadImg, productControllers.upload_post);
 
 // exports
 module.exports = productRouter;

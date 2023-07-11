@@ -1,4 +1,4 @@
-const { User } = require('../models/User');
+const User = require('../models/User');
 
 // handle error
 const handleErr = (err) => {
@@ -15,7 +15,7 @@ const handleErr = (err) => {
     };
 
     // validator
-    if (err.message.includes('Users validation failed')) {
+    if (err.message.includes('Users validation   failed')) {
         Object.values(err.errors).forEach(({ properties }) => {
             errors[properties.path] = properties.message;
         });

@@ -8,10 +8,10 @@ const isValid = (val) => {
     return regex.test(val);
 };
 
-// set roles
+// roles
 const ROLES = {
-    admin: 'admin',
-    user: 'user'
+    USER: 'USER',
+    ADMIN: 'ADMIN'
 };
 
 // schema structure
@@ -36,7 +36,11 @@ const userSchema = mongoose.Schema({
         validate: [isValid, 'Password must contain characters and numbers.'],
         trim: true
     },
-    permissions: [String]
+    permission: {
+        type: String,
+        enum: Object.keys(ROLES),
+        default: ROLES.USER
+    }
 });
 
 // hash password
@@ -64,4 +68,4 @@ userSchema.statics.login = async function(email, password) {
 const User = mongoose.model('Users', userSchema);
 
 // exports
-module.exports =  { User, ROLES };
+module.exports =  User;

@@ -25,8 +25,7 @@ module.exports.upload_post = async (req, res) => {
         contentType: 'image/jpg'
     };
     try {
-        const product = await Smoothies.create({ name, desc, price, img });
-        console.log(name, desc, price, img)
+        await Smoothies.create({ name, desc, price, img });
         res.redirect('/smoothies');
     } catch (err) {
         console.log(err);

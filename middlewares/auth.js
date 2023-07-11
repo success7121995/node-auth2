@@ -1,3 +1,4 @@
+const User = require('../models/User');
 
 // not allow to access if the user is unauthorized.
 module.exports.isAuth = (req, res, next) => {
@@ -20,7 +21,18 @@ module.exports.checkUser = (req, res, next) => {
         res.locals.user = null;
         next();
     } else {
+        console.log(user);
         res.locals.user = user;
         next();
     };
+};
+
+// access control
+module.exports.isAdmin = (req, res, next) => {
+    const user = req.session.user;
+    const role = user.permission;
+    if (role === 'ADMIN') {   
+        next();
+    };
+    throw Error('You don\'t have permission to access.');
 };
