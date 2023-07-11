@@ -31,3 +31,14 @@ module.exports.upload_post = async (req, res) => {
         console.log(err);
     };
 };
+
+// delete products from db
+module,exports.deleteProducts = async (req, res) => {
+    const product = req.body;
+
+    try {
+        const targetProduct = await Smoothies.findByIdAndDelete(product);
+    } catch (err) {
+        console.log(err);
+    };
+};

@@ -30,9 +30,12 @@ module.exports.checkUser = (req, res, next) => {
 // access control
 module.exports.isAdmin = (req, res, next) => {
     const user = req.session.user;
-    const role = user.permission;
-    if (role === 'ADMIN') {   
-        next();
+    if (user) {
+        const role = user.permission;
+        if (role === 'ADMIN') {   
+            next();
+        } else {
+            res.status(403).send('Not allow to do this action.')
+        };
     };
-    throw Error('You don\'t have permission to access.');
 };
