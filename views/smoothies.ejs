@@ -8,12 +8,15 @@
 
     <% if (products.length > 0) { %>
       <% products.forEach(product => { %>
+
         <li class="recipe">
-          <img src="/img/product-img/<%= product.img.data %>" alt="smoothie recipe icon">
-          <h4><%= product.name %></h4>
-          <p><%= product.desc %></p>
-          <p>price: $<%= product.price %></p>
-          <button type="submit" data-doc=""></button>
+          <a href="/smoothies/<%= product._id%>">          
+            <img src="/img/product-img/<%= product.img.data %>" alt="smoothie recipe icon">
+            <h4><%= product.name %></h4>
+            <p><%= product.desc %></p>
+            <p>price: $<%= product.price %></p>
+            <button type="submit" data-doc=""></button>
+          </a>
         </li>
     <%  }) %>
     <% } else { %>

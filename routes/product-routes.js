@@ -10,6 +10,9 @@ const productRouter = express.Router();
 // go to view products
 productRouter.get('/', auth.isAuth, productControllers.viewProducts_get);
 
+// go to view single product
+productRouter.get('/:id', auth.isAuth, productControllers.viewProduct_get);
+
 // go to upload page
 productRouter.get('/upload', auth.isAdmin, productControllers.upload_get);
 

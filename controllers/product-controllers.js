@@ -12,6 +12,11 @@ module.exports.viewProducts_get = async (req, res) => {
     };
 };
 
+// go to view single product
+module.exports.viewProduct_get = async (req, res) => {
+    const product = req.param.id
+}
+
 // go to upload page
 module.exports.upload_get = (req, res) => {
     res.render('upload');
@@ -27,17 +32,6 @@ module.exports.upload_post = async (req, res) => {
     try {
         await Smoothies.create({ name, desc, price, img });
         res.redirect('/smoothies');
-    } catch (err) {
-        console.log(err);
-    };
-};
-
-// delete products from db
-module,exports.deleteProducts = async (req, res) => {
-    const product = req.body;
-
-    try {
-        const targetProduct = await Smoothies.findByIdAndDelete(product);
     } catch (err) {
         console.log(err);
     };
