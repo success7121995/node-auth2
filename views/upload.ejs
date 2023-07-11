@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/header'); -%>
+<body>
+  <%- include('partials/nav'); -%>
+    <form action="/smoothies/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <input type="submit">
+    </form> 
+  <%- include('partials/footer'); -%>
+</body>
+</html>
+
+
+

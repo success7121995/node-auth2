@@ -12,14 +12,12 @@ module.exports.viewProducts_get = async (req, res) => {
     };
 };
 
-// store products to db
-module.exports.uploadProduct_post = async (req, res) => {
-    const { name, desc, price } = req.body;
+// go to upload page
+module.exports.upload_get = (req, res) => {
+    res.render('upload');
+};
 
-    try {
-        const product = await Smoothies.create({ name, desc, price });
-        res.json({ product });
-    } catch (err) {
-        console.log(err);
-    };
+// store products to db
+module.exports.upload_post = async (req, res) => {
+    res.send('uploaded');
 };
